@@ -1,3 +1,10 @@
+/*
+ * @Author: yangtianbo5
+ * @Date: 2020-09-07 10:06:37
+ * @Description: 
+ * @LastEditors: yangtianbo5
+ * @LastEditTime: 2020-09-07 14:12:31
+ */
 Function.prototype.mcall = function (context) {
   //只拿第一个参，为绑定的上下文，无则window
   const ctx = context || window
@@ -48,7 +55,9 @@ Function.prototype.myBind = function (context) {
     //拼接默认参数和新参数
     return self.apply(ctx, args.concat(newArgs))
   }
-  bound.prototype = new F()
+  bound.prototype = Object.create(this.prototype)
+  bound.prototype.constructor=bound
+  // bound.prototype = new F()
   return bound
 }
 let cur = test.myBind(obj, 'str1', 'str3')
@@ -56,21 +65,3 @@ cur('str2')
 let chi = new cur('123')
 console.log(cur.prototype.__proto__ === test.prototype)
 
-let cat = function (name) {
-  this.name = name
-  this.call = function () {
-    console.log(this.name)
-  }
-}
-function myNew(fn, ...args) {
-  //create用现有对象（prototype）创建新对象的__proto__
-  // let obj = Object.create(fn.prototype)
-  let obj = {}
-  obj.__proto__ = fn.prototype
-  //只用对obj执行以下构造函数即可，但要判断构造函数返回东西没,如果返回对象则用这个对象
-  let result = fn.call(obj, ...args)
-  return typeof result === 'object' ? result : obj
-}
-// let mew = myNew(cat, 'cat')
-// console.log('myNew', mew)
-// console.log(mew.__proto__ === cat.prototype)
