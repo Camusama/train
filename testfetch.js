@@ -1,24 +1,11 @@
 /*
  * @Author: yangtianbo5
- * @Date: 2020-09-07 22:25:06
+ * @Date: 2020-09-07 10:06:37
  * @Description:
  * @LastEditors: yangtianbo5
- * @LastEditTime: 2020-09-08 16:06:41
+ * @LastEditTime: 2020-09-08 15:48:44
  */
 
-// function fetch(url = '') {
-//   const xhr = new XMLHttpRequest()
-//   xhr.onload = () => {
-//     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-//       console.log(xhr.responseText)
-//     } else {
-//       console.log('Something wrong!')
-//     }
-//   }
-//   xhr.open('get', url, true)
-//   xhr.send(null)
-// }
-// 生成[0-9]
 const urls = Array.from({length: 10}, (v, k) => k)
 
 const fetch = function (idx) {
@@ -38,40 +25,30 @@ const max = 4
 const callback = (res) => {
   console.log('run callback' + res)
 }
-
 function sendRequest(urls = [], max = 1, callback = () => {}) {
-  let count = urls.length
   let finish = 0
-  let result = []
-  //本方法要自动修改urls队列
-  let i = 0
+  let count = urls.length
+  let res = []
   let fetchUrl = function () {
     let url = urls.shift()
-    // let url = urls[i]
-    // i++
     fetch(url)
       .then((r) => {
-        result.push(r)
+        res.push(r)
       })
       .catch((e) => {
-        result.push(e)
+        res.push(e)
       })
       .finally(() => {
-        //关键，自动走下一步逻辑,调用自己
         finish++
         if (urls.length) {
           fetchUrl()
-        } else {
-          if (finish === count) {
-            callback(result)
-          }
+        } else if (finish >= count) {
+          callback(res)
         }
       })
   }
-  //关键
   for (let i = 0; i < max; i++) {
     fetchUrl()
   }
 }
-
-sendRequest(urls, 3, callback)
+sendRequest(urls, 4, callback)
