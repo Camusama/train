@@ -3,7 +3,7 @@
  * @Date: 2020-09-07 10:06:37
  * @Description: 
  * @LastEditors: yangtianbo5
- * @LastEditTime: 2020-09-07 14:12:31
+ * @LastEditTime: 2020-09-10 14:58:58
  */
 Function.prototype.mcall = function (context) {
   //只拿第一个参，为绑定的上下文，无则window
@@ -47,8 +47,10 @@ Function.prototype.myBind = function (context) {
   //取其余参数,主要是拼接默认参数和新参数
   let args = [...arguments].slice(1)
   //来个继承处理，最后return的函数要继承传入的函数
-  let F = function () {}
-  F.prototype = this.prototype
+  // let F = function () {}
+  // F.prototype = this.prototype
+  // bound.prototype=new F()
+  //等同于Object.create
   let bound = function () {
     //这里的arguments是新传入的
     let newArgs = [...arguments]
@@ -56,8 +58,8 @@ Function.prototype.myBind = function (context) {
     return self.apply(ctx, args.concat(newArgs))
   }
   bound.prototype = Object.create(this.prototype)
-  bound.prototype.constructor=bound
-  // bound.prototype = new F()
+  //如果使用bound.prototype=new this.prototype
+  //则需要bound.prototype.constructor=bound
   return bound
 }
 let cur = test.myBind(obj, 'str1', 'str3')
