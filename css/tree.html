@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tree</title>
+  </head>
+  <style>
+    .parentNode {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 800px;
+      height: 400px;
+      border: 1px solid #000;
+      margin: 20px auto;
+    }
+    .childNode1 {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 350px;
+      width: 370px;
+      border: 1px solid #000;
+    }
+    .childNode2 {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 300px;
+      width: 160px;
+      border: 1px solid #000;
+    }
+    .childNode3 {
+      height: 250px;
+      width: 60px;
+      border: 1px solid #000;
+    }
+    .button {
+      width: 200px;
+      margin: auto;
+    }
+  </style>
+  <body>
+    <div class="parentNode">
+      <div class="childNode1">
+        <div class="childNode2">
+          <div class="childNode3"></div>
+          <div class="childNode3"></div>
+        </div>
+        <div class="childNode2">
+          <div class="childNode3"></div>
+          <div class="childNode3"></div>
+        </div>
+      </div>
+      <div class="childNode1">
+        <div class="childNode2">
+          <div class="childNode3"></div>
+          <div class="childNode3"></div>
+        </div>
+        <div class="childNode2">
+          <div class="childNode3"></div>
+          <div class="childNode3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="button">
+      <button class="VLR">先序遍历</button>
+      <button class="LVR">中序遍历</button>
+      <button class="LRV">后序遍历</button>
+    </div>
+  </body>
+  <script>
+    var visitedList = []
+    var parent = document.getElementsByClassName('parentNode')[0]
+
+    //遍历函数
+    //先序遍历
+    var preOrder = function (node) {
+      if (node !== null) {
+        visitedList.push(node)
+        preOrder(node.firstElementChild)
+        preOrder(node.lastElementChild)
+      }
+    }
+
+    //中序遍历
+    var inOrder = function (node) {
+      if (node !== null) {
+        inOrder(node.firstElementChild)
+        visitedList.push(node)
+        inOrder(node.lastElementChild)
+      }
+    }
+
+    //后序遍历
+    var postOrder = function (node) {
+      if (node !== null) {
+        postOrder(node.firstElementChild)
+        postOrder(node.lastElementChild)
+        visitedList.push(node)
+      }
+    }
+
+    //渲染函数，呈现视觉效果用
+    var render = function () {
+      var int = setInterval(function () {
+        clear()
+        var currentNode
+        currentNode = visitedList.shift()
+        //alert(currentNode);
+        if (currentNode !== undefined) {
+          currentNode.style.backgroundColor = 'red'
+        } else {
+          window.clearInterval(int)
+        }
+      }, 500)
+    }
+
+    //清空函数
+    var clear = function () {
+      var div = document.getElementsByTagName('div')
+      for (var index = 0; index < div.length; index++) {
+        div[index].style.backgroundColor = '#fff'
+      }
+    }
+
+    var init = function () {
+      var btn = document.getElementsByClassName('button')[0]
+      btn.addEventListener(
+        'click',
+        function (e) {
+          if (e.target && e.target.className == 'VLR') {
+            visitedList = []
+            preOrder(parent)
+            render()
+          }
+          if (e.target && e.target.className == 'LVR') {
+            visitedList = []
+            inOrder(parent)
+            render()
+          }
+          if (e.target && e.target.className == 'LRV') {
+            visitedList = []
+            postOrder(parent)
+            render()
+          }
+        },
+        false
+      )
+    }
+
+    init()
+  </script>
+</html>

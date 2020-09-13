@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animation</title>
+  </head>
+  <style>
+    #anima-div {
+      width: 60px;
+      height: 40px;
+      background: #92b901;
+      color: #ffffff;
+      position: relative;
+      font-weight: bold;
+      padding: 20px 10px 0px 10px;
+      border-radius: 2px;
+      position: absolute;
+      animation: move 4s infinite;
+    }
+    @keyframes move {
+      0% {
+        background: #fff;
+      }
+      50% {
+        background: #000;
+      }
+      to {
+        background: #fff;
+      }
+    }
+  </style>
+  <body>
+    <div id="anima-div">css动画</div>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+  </body>
+</html>

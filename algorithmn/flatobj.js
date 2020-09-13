@@ -32,39 +32,6 @@ let obj = {
   c: [1, 2],
 }
 
-// let flagObj = function (obj = {}) {
-//   let res = {}
-
-//   let flat = function (cur, prop) {
-//     //不是引用类型
-//     if (typeof cur !== 'object') {
-//       res[prop] = cur
-//     } else {
-//       //判断数组
-//       if (Array.isArray(cur)) {
-//         // 出口 如为空数组
-//         if (cur.length === 0) {
-//           res[prop] = []
-//         }
-//         Object.keys(cur).forEach((i) => {
-//           flat(cur[i], `${prop}[${i}]`)
-//         })
-//       }
-//       if (Object.prototype.toString.call(cur) === '[object Object]') {
-//         let empty = true
-//         for (let i in cur) {
-//           empty = false
-//           flat(cur[i], prop ? `${prop}.${i}` : i)
-//         }
-//         if (empty && prop) {
-//           res[prop] = {}
-//         }
-//       }
-//     }
-//   }
-//   flat(obj, '')
-//   return res
-// }
 let flatObj = function (obj = {}) {
   let res = {}
   let flat = function (cur, prop) {
