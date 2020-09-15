@@ -36,6 +36,21 @@ var lengthOfLongestSubstring = function (s) {
   // console.log(clus)
   return max
 }
+var mapget = function (s) {
+  let obj = new Map()
+  let max = 0
+  for (let i = 0, j = 0; j < s.length; j++) {
+    if (!obj.has(s[j])) {
+      obj.set(s[j], j)
+    } else {
+      //只用保证起点在向后拉即可，不用回头
+      i = Math.max(obj.get(s[j]) + 1, i)
+      obj.set(s[j], j)
+    }
+    max = Math.max(max, j - i + 1)
+  }
+  return max
+}
 // 输入: "pwpwkew"
 // 输出: pw wp pwke kew
 let getMax = function (str) {
