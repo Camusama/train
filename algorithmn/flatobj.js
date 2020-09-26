@@ -32,10 +32,52 @@ let obj = {
   c: [1, 2],
 }
 
-let flatObj = function (obj = {}) {
+// let flatObj = function (obj = {}) {
+//   let res = {}
+//   let flat = function (cur, prop) {
+//     //先出口
+//     if (typeof cur !== 'object') {
+//       res[prop] = cur
+//     } else {
+//       if (Array.isArray(cur)) {
+//         if (!cur.length) {
+//           res[prop] = []
+//         } else {
+//           for (let i in cur) {
+//             flat(cur[i], `${prop}[${i}]`)
+//           }
+//         }
+//       } else {
+//         let emp = true
+//         for (let i in cur) {
+//           emp = false
+//           flat(cur[i], prop ? `${prop}.${i}` : i)
+//         }
+//         //因为第一次prop为空，第一次不加
+//         if (emp && prop) {
+//           cur[prop] = {}
+//         }
+//       }
+//     }
+//   }
+//   flat(obj, '')
+//   return res
+// }
+let flatArr = function (arr = [], deep = 0) {
+  if (deep === 0) {
+    return arr
+  }
+  return arr.reduce((pre, cur) => {
+    if (Array.isArray(cur)) {
+      return [...pre, ...flatArr(cur, deep - 1)]
+    } else {
+      return [...pre, cur]
+    }
+  }, [])
+}
+let flatObj = function (obj) {
   let res = {}
   let flat = function (cur, prop) {
-    //先出口
     if (typeof cur !== 'object') {
       res[prop] = cur
     } else {
@@ -53,14 +95,14 @@ let flatObj = function (obj = {}) {
           emp = false
           flat(cur[i], prop ? `${prop}.${i}` : i)
         }
-        //因为第一次prop为空，第一次不加
         if (emp && prop) {
-          cur[prop] = {}
+          res[prop] = {}
         }
       }
     }
   }
-  flat(obj, '')
+  flat(obj)
   return res
 }
 console.log('111', flatObj(obj))
+console.log('arr', flatArr([1, [2, [3, 4, [5]]], 6], 4))
