@@ -1,3 +1,4 @@
+// Watcher，作为连接Observer和Compile的桥梁
 function Watcher(vm, expOrFn, cb) {
   this.cb = cb
   this.vm = vm
@@ -12,6 +13,7 @@ function Watcher(vm, expOrFn, cb) {
   // 此处为了触发属性的getter，从而在dep添加自己，结合Observer更易理解
   this.value = this.get()
 }
+// Watcher，作为连接Observer和Compile的桥梁
 // 实例化Watcher的时候，调用get()方法，通过Dep.target = watcherInstance标记订阅者是当前watcher实例，
 // 强行触发属性定义的getter方法，getter方法执行的时候，就会在属性的订阅器dep添加当前watcher实例，从而在属性值有变化的时候，watcherInstance就能收到更新通知。
 // 在自身实例化时往属性订阅器(dep)里面添加自己  dep.target
