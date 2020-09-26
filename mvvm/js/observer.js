@@ -18,11 +18,13 @@ Observer.prototype = {
   defineReactive: function (data, key, val) {
     var dep = new Dep()
     var childObj = observe(val)
-
+    // 注意这里，其实dep相对于get set函数是闭包
+    //用来持久化
     Object.defineProperty(data, key, {
       enumerable: true, // 可枚举
       configurable: false, // 不能再define
       get: function () {
+        //TODO:mvue:2.关键 调用,这里如果compile访问了就有Dep.target
         if (Dep.target) {
           dep.depend()
         }
@@ -61,7 +63,7 @@ Dep.prototype = {
   addSub: function (sub) {
     this.subs.push(sub)
   },
-
+  //只会被watcher调用depend，则在wathcer中的dep里加入自己
   depend: function () {
     // Dep.target指向一个Watcher实例
     Dep.target.addDep(this)

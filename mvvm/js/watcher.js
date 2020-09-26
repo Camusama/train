@@ -52,12 +52,15 @@ Watcher.prototype = {
       this.depIds[dep.id] = dep
     }
   },
+  //TODO:mvue:4.关键 调用,bind中new Watcher时调用
+  //Dep.target缓存自己这个watcher
   get: function () {
     // 这里会触发属性的getter，从而添加订阅者
     // 在自身实例化时往属性订阅器(dep)里面添加自己  dep.target
     // 将当前订阅者指向自己
     Dep.target = this
     // 触发getter，添加自己到属性订阅器中
+    //即observe里的get
     var value = this.getter.call(this.vm, this.vm)
     // 添加完毕，重置
     Dep.target = null

@@ -119,7 +119,8 @@ var compileUtil = {
   class: function (node, vm, exp) {
     this.bind(node, vm, exp, 'class')
   },
-
+  //TODO:mvue:3.关键 调用,视图绑定都需要调用bind
+  //bind里才调用new Watcher, 触发watcher.prototype.get,
   bind: function (node, vm, exp, dir) {
     var updaterFn = updater[dir + 'Updater']
 
