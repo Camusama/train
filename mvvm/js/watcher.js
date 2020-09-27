@@ -1,3 +1,10 @@
+/*
+ * @Author: yangtianbo5
+ * @Date: 2020-09-27 10:35:50
+ * @Description: 
+ * @LastEditors: yangtianbo5
+ * @LastEditTime: 2020-09-27 15:16:41
+ */
 // Watcher，作为连接Observer和Compile的桥梁
 function Watcher(vm, expOrFn, cb) {
   this.cb = cb
@@ -42,14 +49,17 @@ Watcher.prototype = {
     // 则需要将当前watcher(child.name)加入到新的 child.name 的dep里
     // 因为此时 child.name 是个新值，之前的 setter、dep 都已经失效，如果不把 watcher 加入到新的 child.name 的dep中
     // 通过 child.name = xxx 赋值的时候，对应的 watcher 就收不到通知，等于失效了
+    //
     // 4. 每个子属性的watcher在添加到子属性的dep的同时，也会添加到父属性的dep
     // 监听子属性的同时监听父属性的变更，这样，父属性改变时，子属性的watcher也能收到通知进行update
     // 这一步是在 this.get() --> this.getVMVal() 里面完成，forEach时会从父级开始取值，间接调用了它的getter
+    
     // 触发了addDep(), 在整个forEach过程，当前wacher都会加入到每个父级过程属性的dep
     // 例如：当前watcher的是'child.child.name', 那么child, child.child, child.child.name这三个属性的dep都会加入当前watcher
     if (!this.depIds.hasOwnProperty(dep.id)) {
       dep.addSub(this)
       this.depIds[dep.id] = dep
+      //watcher的ids缓存保存过自己的dep们
     }
   },
   //TODO:mvue:4.关键 调用,bind中new Watcher时调用

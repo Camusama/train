@@ -3,7 +3,7 @@
  * @Date: 2020-09-23 16:38:31
  * @Description: 
  * @LastEditors: yangtianbo5
- * @LastEditTime: 2020-09-23 16:44:29
+ * @LastEditTime: 2020-09-24 09:44:11
  */
 let promiseAll=function (arr) {
   return new Promise((resolve,reject) => {
@@ -21,6 +21,7 @@ let promiseAll=function (arr) {
     }
   })
 }
+//all反过来就是promise.any
 
 const fetch = function (idx) {
   return new Promise((resolve) => {

@@ -1,3 +1,10 @@
+/*
+ * @Author: yangtianbo5
+ * @Date: 2020-09-27 10:35:50
+ * @Description: 
+ * @LastEditors: yangtianbo5
+ * @LastEditTime: 2020-09-27 14:18:44
+ */
 function MVVM(options) {
   this.$options = options || {}
   var data = (this._data = this.$options.data)
@@ -24,6 +31,7 @@ MVVM.prototype = {
 
   _proxyData: function (key, setter, getter) {
     var me = this
+    //这里是this直接访问到$data
     setter =
       setter ||
       Object.defineProperty(me, key, {

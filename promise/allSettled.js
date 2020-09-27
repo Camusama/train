@@ -3,7 +3,7 @@
  * @Date: 2020-09-23 16:48:36
  * @Description: 
  * @LastEditors: yangtianbo5
- * @LastEditTime: 2020-09-23 17:01:02
+ * @LastEditTime: 2020-09-24 09:52:48
  */
 const fetch = function (idx) {
   return new Promise((resolve,reject) => {
@@ -49,6 +49,13 @@ promiseAllSetteld=function (arr) {
   })
   
 }
+Promise.resolve(value)
+// 返回一个状态由给定value决定的Promise对象。如果该值是thenable(即，带有then方法的对象)，
+// 返回的Promise对象的最终状态由then方法执行决定；否则的话(该value为空，基本类型或者不带then方法的对象),
+// 返回的Promise对象状态为fulfilled，并且将该value传递给对应的then方法。通常而言，
+// 如果你不知道一个值是否是Promise对象，使用Promise.resolve(value) 来返回一个Promise对象,
+// 这样就能将该value以Promise对象形式使用。
+//实际上 then里链式调用return的相当于这个 ，同样会判断promise
 // Promise.allSettled(arr).then((res) => {
 //   console.log('allend',res);
 // })
