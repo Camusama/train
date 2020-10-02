@@ -14,7 +14,7 @@ let curry = function (fn) {
     } else {
       //返回函数，拼接参数
       return (...args2) => {
-        return gen(...args, args2)
+        return gen(...args, ...args2)
       }
     }
   }

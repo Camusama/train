@@ -53,6 +53,8 @@ var mapget = function (s) {
 }
 // 输入: "pwpwkew"
 // 输出: pw wp pwke kew
+//i=max(i,m[i]+1),[i+1,j]内非重复
+//res=max(res,j-i+1)
 let getMax = function (str) {
   let obj = {}
   let max = 0
