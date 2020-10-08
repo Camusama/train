@@ -1,27 +1,29 @@
 /*
  * @Author: yangtianbo5
  * @Date: 2020-09-23 16:38:31
- * @Description: 
+ * @Description:
  * @LastEditors: yangtianbo5
  * @LastEditTime: 2020-09-23 16:47:30
  */
-let promiseAll=function (arr) {
-  return new Promise((resolve,reject) => {
-    for(let i in arr){
-      Promise.resolve(arr[i]).then((res) => {
-        resolve(res)
-        //return的作用是中断 别的不管了
-        return
-      }).catch(e=>{
-        reject(e)
-        return
-      })
+let promiseRace = function (arr) {
+  return new Promise((resolve, reject) => {
+    for (let i in arr) {
+      Promise.resolve(arr[i])
+        .then(res => {
+          resolve(res)
+          //return的作用是中断 别的不管了
+          return
+        })
+        .catch(e => {
+          reject(e)
+          return
+        })
     }
   })
 }
 
 const fetch = function (idx) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     console.log(`start request ${idx}`)
     // 模拟请求时间
     const timeout = parseInt(Math.random() * 1e4)
@@ -31,7 +33,11 @@ const fetch = function (idx) {
     }, timeout)
   })
 }
-const arr = Array.from({length: 10}, (v, k) => fetch(k))
-promiseAll(arr).then((res) => {
-  console.log('allend',res);
+// const arr = Array.from({length: 10}, (v, k) => fetch(k))
+let arr = [fetch(1), fetch(2), fetch(3)]
+promiseRace(arr).then(res => {
+  console.log('allend', res)
 })
+// Promise.race(arr).then(res => {
+//   console.log('allend', res)
+// })

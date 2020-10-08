@@ -1,7 +1,7 @@
 /*
  * @Author: yangtianbo5
  * @Date: 2020-09-07 10:06:37
- * @Description: 
+ * @Description:
  * @LastEditors: yangtianbo5
  * @LastEditTime: 2020-09-10 14:58:58
  */
@@ -50,6 +50,7 @@ Function.prototype.myBind = function (context) {
   // let F = function () {}
   // F.prototype = this.prototype
   // bound.prototype=new F()
+  //bound.prototype.constructor=bound
   //等同于Object.create
   let bound = function () {
     //这里的arguments是新传入的
@@ -66,4 +67,3 @@ let cur = test.myBind(obj, 'str1', 'str3')
 cur('str2')
 let chi = new cur('123')
 console.log(cur.prototype.__proto__ === test.prototype)
-

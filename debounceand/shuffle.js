@@ -15,7 +15,7 @@ let shuffle = function (arr) {
 }
 let shuffle2 = function (arr) {
   for (let i = 0; i < arr.length; i++) {
-    let ran = i + Math.floor(Math.random() * (arr.length - i))
+    let ran = i + ((Math.random() * (arr.length - i)) | 0)
     ;[arr[i], arr[ran]] = [arr[ran], arr[i]]
   }
   return arr

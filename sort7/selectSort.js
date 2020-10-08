@@ -3,6 +3,7 @@ let arr = require('./testArr')
 let selectSort1 = function (arr) {
   for (let i = 0; i < arr.length; i++) {
     let cur = i
+    //找出i右边最小的
     for (let j = i + 1; j < arr.length; j++) {
       if (arr[cur] > arr[j]) cur = j
     }
