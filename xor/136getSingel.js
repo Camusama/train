@@ -14,6 +14,7 @@
 
 // >> << 位移动,小数位移0取整
 // a=3 b=2  a/b>>0 = 1
+// a>>1 =1  >>1相当于Math.floor(a/2)
 var singleNumber = function (nums) {
   let arr = nums.sort()
   for (i = 0; i < nums.length - 1; i = i + 2) {

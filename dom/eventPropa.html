@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animation</title>
+  </head>
+  <style>
+
+    
+  </style>
+  <body>
+   <ul>
+     <li id="1id" class="1class">111</li>
+     <li>222</li>
+     <li>333</li>
+   </ul>
+   <script>
+     let ul=document.querySelector('ul')
+     ul.addEventListener('click',(e)=>{
+      let text=e.target.innerText
+      console.log(e.target.id,e.target.className)
+      switch(text){
+        case '111':{
+          console.log(1)
+          break
+        }
+        case '222':{
+          console.log(2)
+          break
+        }
+        case '333':{
+          console.log(3)
+          break
+        }
+        default:{
+          console.log('default')
+          break
+        }
+      }
+     },false)
+     //true捕获  false冒泡
+   </script>
+  </body>
+</html>
