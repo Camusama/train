@@ -34,10 +34,27 @@ const fetch = function (idx) {
   })
 }
 // const arr = Array.from({length: 10}, (v, k) => fetch(k))
-let arr = [fetch(1), fetch(2), fetch(3)]
-promiseRace(arr).then(res => {
-  console.log('allend', res)
-})
+// let arr = [fetch(1), fetch(2), fetch(3)]
+// promiseRace(arr).then(res => {
+//   console.log('allend', res)
+// })
 // Promise.race(arr).then(res => {
 //   console.log('allend', res)
 // })
+function timerPromisefy(delay) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve(delay)
+    }, delay)
+  })
+}
+var startDate = Date.now()
+let array = [timerPromisefy(10), timerPromisefy(20), timerPromisefy(30)]
+Promise.race(array).then(function (values) {
+  console.log(values) // 10
+  setTimeout(() => {
+    for (let i of array) {
+      console.log(i)
+    }
+  }, 200)
+})
