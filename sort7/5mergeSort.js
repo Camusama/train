@@ -40,3 +40,22 @@ let arr1 = arr.slice()
 let arr2 = arr.slice()
 console.log('merge1', mergeSort1(arr1))
 // console.log('merge2', mergeSort2(arr1))
+//原地合并
+const merge = (nums1, m, nums2, n) => {
+  let i = m - 1
+  let j = n - 1
+  let tail = m + n - 1
+  //要以短的数组为界
+  while (j >= 0) {
+    //这里i=-1  回走else的
+    if (nums1[i] > nums2[j]) {
+      nums1[tail] = nums1[i]
+      i--
+      tail--
+    } else {
+      nums1[tail] = nums2[j]
+      j--
+      tail--
+    }
+  }
+}

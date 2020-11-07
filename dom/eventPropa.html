@@ -40,6 +40,15 @@
       }
      },false)
      //true捕获  false冒泡
+
+//找dom1 dom2最近的公共父节点     
+function commonParentNode(oNode1,oNode2){
+   for(;oNode1;oNode1 = oNode1.parentNode){
+      if(oNode1.contains(oNode2)){
+         return oNode1;
+     }
+  }
+}
    </script>
   </body>
 </html>

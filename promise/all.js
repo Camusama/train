@@ -33,35 +33,21 @@ const fetch = function (idx) {
     setTimeout(() => {
       console.log(`end request ${idx}`)
       Math.random() > 0.5 ? resolve(idx) : reject(idx)
+      // resolve(idx)
     }, timeout)
+  }).then(res => {
+    console.log('do then:', res)
+    return res
   })
 }
-// const arr = Array.from({ length: 10 }, (v, k) => fetch(k))
-let a = new Promise((resolve, reject) => {
-  console.log(`start request ${1}`)
-  // 模拟请求时间
-  const timeout = parseInt(Math.random() * 1e4)
-  setTimeout(() => {
-    console.log(`end request ${1}`)
-    reject(1)
-  }, timeout)
-})
-let b = new Promise((resolve, reject) => {
-  console.log(`start request $`)
-  // 模拟请求时间
-  const timeout = parseInt(Math.random() * 1e4)
-  setTimeout(() => {
-    console.log(`end request ${2}`)
-    Math.random() > 0.5 ? resolve(2) : reject(2)
-  }, timeout)
-})
-let arr = [a, b]
-Promise.all(arr)
+const arr = Array.from({ length: 10 }, (v, k) => fetch(k))
+
+promiseAll(arr)
   .then(res => {
-    console.log('allend', res)
+    console.log('allend--------------------------------------------', res)
   })
   .catch(e => {
-    console.log('err', e)
+    console.log('allerr-----------------------------------------------', e)
     setTimeout(() => {
       for (let i of arr) {
         console.log(i)
